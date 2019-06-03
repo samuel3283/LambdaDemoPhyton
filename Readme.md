@@ -94,6 +94,9 @@ Change set name: LambdaDemoPhytonSC
 
 "Save cambios"
 
+Otros link
+https://docs.aws.amazon.com/es_es/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html
+
 
 
 
