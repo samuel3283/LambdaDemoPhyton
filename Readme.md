@@ -29,3 +29,56 @@ Nombre de Politica: CFNLambdaPolicy
 Guardar
 
 
+EN AWS IR A CodePipeline
+Por default
+New service Role
+Default S3 location
+
+Source: GitHub
+Conectar y seleccionar repository y branch
+
+Add build stage
+Build provider:  AWS CodeBuild
+
+Project name: Create Project
+Project name: LambdaDemoPhyton
+Enviroment image:  Managed image
+Operating system:  Ubuntu
+Image:  aws/codebuild/standard:1.0
+Image versión:  aws/codebuild/standard:1.0-1.8.0
+
+Next
+------------------------
+Al Rol codebuild-LambdaDemoPhyton-service-role
+Añadir una política insertada
+EN la pestaña editor visual
+Click en elegir servicio:  S3
+Click en Acciones:  Escribir / Pull Object
+CLick en Recursos: marcar Todos los recursos
+
+Click en revisar la politica
+Nombre: codebuildS3Policy
+Click en crear politica
+
+------------------------
+Add deploy stage
+Deploy provider:  AWS CloudFormation
+Region:  US East Virginia
+
+Action mode: Create or replace a change set
+Stack name: LambdaDemoPhytonStack
+Template:  arn:aws:s3:::misrecursos/outputSamTemplate.yaml  (template de salida)
+
+Capabilities - optional:   CAPABILITY_IAM
+Role name:  CloudFormationServiceRole
+
+Next
+
+
+
+
+
+
+
+
+
