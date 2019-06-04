@@ -4,6 +4,12 @@ usuario=samuel?email=samuel@gmail.com
 "usuario": "samuel",
 "email": "samuel@gmail.com"
 }
+Se crea manualmente el rol CloudFormationServiceRole
+Se crea manualmente el rol MyLambdaRole  (Permisos LambdaManualPolicy, ApiGatewayManualPolicy)
+Se crea automaticamente en el stage build el rol codebuild-LambdaDemoPhyton-service-role
+
+Se crea automaticamente al crear el CodePipeline
+(Aqui crea Rol AWSCodePipelineServiceRole-us-east-1-LambdaPhytonPipeline)
 
 
 Crear Role ==> Selecciona CloudFormation ==> Filtrar AwsLambdaExecute
@@ -30,11 +36,14 @@ Guardar
 
 
 EN AWS IR A CodePipeline
+Pipeline Name: FxLambdaPhytonPipeline
 Por default
-New service Role
+New service Role  
+(Aqui crea Rol por default name:
+AWSCodePipelineServiceRole-us-east-1-LambdaPhytonPipeline)
 Default S3 location
 
-Source: GitHub
+Source provider: GitHub
 Conectar y seleccionar repository y branch
 
 Add build stage
@@ -44,16 +53,19 @@ Project name: Create Project
 Project name: LambdaDemoPhyton
 Enviroment image:  Managed image
 Operating system:  Ubuntu
+Runtime: Standard
 Image:  aws/codebuild/standard:1.0
 Image versión:  aws/codebuild/standard:1.0-1.8.0
-
+Check new service role
+(Aqui se genero un Rol codebuild-LambdaDemoPhyton-service-role)
+Check use a buildspec file
 Next
-------------------------
+------------------------AQUI EDITAR ROLE
 Al Rol codebuild-LambdaDemoPhyton-service-role
 Añadir una política insertada
-EN la pestaña editor visual
+En la pestaña editor visual
 Click en elegir servicio:  S3
-Click en Acciones:  Escribir / Pull Object
+Click en Acciones:  Escribir / Put Object
 CLick en Recursos: marcar Todos los recursos
 
 Click en revisar la politica
@@ -67,6 +79,7 @@ Region:  US East Virginia
 
 Action mode: Create or replace a change set
 Stack name: LambdaDemoPhytonStack
+Change set name: LambdaDemoPhytonSN
 Template:  BuildArtifact::outputSamTemplate.yaml
 
 arn:aws:s3:::misrecursos/outputSamTemplate.yaml  (template de salida)
@@ -90,7 +103,7 @@ Action provider: AWS CloudFormation
 
 Action mode: Execute a change set
 Stack name: LambdaDemoPhytonStack
-Change set name: LambdaDemoPhytonSC
+Change set name: LambdaDemoPhytonSN
 
 "Save cambios"
 
